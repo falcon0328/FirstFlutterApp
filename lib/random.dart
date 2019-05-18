@@ -12,6 +12,10 @@ class RandomWordsState extends State<RandomWords> {
    */
   final List<WordPair> _suggestions = <WordPair>[];
   /**
+   * お気に入り一覧
+   */
+  final Set<WordPair> _saved = Set<WordPair>();
+  /**
    * テキストのスタイル指定
    */
   final TextStyle _biggerFont = const TextStyle(fontSize: 18);
@@ -20,7 +24,24 @@ class RandomWordsState extends State<RandomWords> {
    * リストに表示する行の設定
    */
   Widget _buildRow(WordPair pair) {
-    return ListTile(title: Text(pair.asPascalCase, style: _biggerFont));
+    // 単語がまだお気に入りに追加されてないことをチェックする
+    final bool alreadySaved = _saved.contains(pair);
+    return ListTile(
+      title: Text(pair.asPascalCase, style: _biggerFont),
+      trailing: Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+      onTap: () {
+        setState(() {
+          if (alreadySaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+      },
+    );
   }
 
   /**
