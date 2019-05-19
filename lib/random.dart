@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:hello/favorite.dart';
 
 class RandomWords extends StatefulWidget {
   @override
@@ -81,19 +82,8 @@ class RandomWordsState extends State<RandomWords> {
    * リストアイコンを押した時に次の画面に遷移する
    */
   void _pushSaved() {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      final Iterable<ListTile> tiles = _saved.map((WordPair pair) {
-        return ListTile(title: Text(pair.asPascalCase, style: _biggerFont));
-      });
-      final List<Widget> divided =
-          ListTile.divideTiles(context: context, tiles: tiles).toList();
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("Saved Suggestions"),
-        ),
-        body: ListView(children: divided),
-      );
-    }));
+    Navigator.of(context).push(new MaterialPageRoute<Null>(
+        settings: RouteSettings(name: "/favorite"),
+        builder: (BuildContext context) => FavoriteWords(_saved.toList())));
   }
 }

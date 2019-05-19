@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/driver_extension.dart';
+import 'package:hello/favorite.dart';
 import 'package:hello/random.dart'; // add this line by seo
 
 void main() {
@@ -20,6 +21,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: RandomWords(),
+      routes: <String, WidgetBuilder>{
+        "/favorite": (BuildContext context) => FavoriteWords(null)
+      },
     );
   }
 }
